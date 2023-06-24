@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1> Login Page </h1>
+  <form id="data-form">
+    <!-- FORM CONTROLS -->
+    <label for="username"> Username: </label>
+    <input type="text" id="username" required />
+    <br />
+    <label for="password"> Password: </label>
+    <input type="password" id="password" required />
+    <br />
+    <input type="submit" value="Validate" />
+    <input type="button" value="Add" id="addButton" />
+    <input type="reset" value="Clear" />
+  </form>
+
+  <script defer>
+
+    let formPage = document.getElementById("data-form");
+    let username = document.getElementById("username");
+    let password = document.getElementById("password");
+    let addButton = document.getElementById("addButton");
+
+    let accounts = new Map();
+
+    /*
+     * Create a function that validates a username's input pattern (with Regular Expressions)
+     */
+    function validateUsername(username) {
+      return false;
+    }
+
+    /*
+     * Create a function that validates a password's input pattern (with Regular Expressions)
+     */
+    function validatePassword(password) {
+      return false;
+    }
+
+    /*
+     * DO NOT TOUCH! Okay na itong function
+     */
+    function validateCredentials(username, password) {
+      return validateUsername(username) && validatePassword(password);
+    }
+
+    // Upon clicking "Validate" button.
+    formPage.addEventListener("submit", event => {
+      let message;
+
+      event.preventDefault();
+
+      if (!validateUsername(username.value)) {
+        message = "Username is invalid.";
+      }
+      else if (!validatePassword(password.value)) {
+        message = "Password is invalid.";
+      }
+      else {
+        message = "Success!"
+      }
+
+      // Trigger an alert message here.
+      alert(message);
+    });
+
+    // Upon clicking "Add" button.
+    addButton.addEventListener("click", event => {
+      // Input validation first, before adding credentials to the database.
+      if (validateCredentials(username.value, password.value)) {
+        accounts.set(username.value, password.value); // Inserts a new key-value pair (account) to accounts map.
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
