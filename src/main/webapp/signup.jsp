@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up Page</title>
+    <title>Sign Up Page | Quiz Website</title>
 
     <style>
         .fc-section, .label {
@@ -38,6 +38,19 @@
 
     <h1> Exercise: Quiz Website </h1>
     <p> Create an account to get started. </p>
+
+    <%
+        // Fetch response status code
+        int status = response.getStatus();
+
+        // If user entered wrong credentials in our form,
+        // notify user that such account credentials do not exist.
+        if (status == HttpServletResponse.SC_CONFLICT) {
+    %>
+    <p class="danger"> Username "<%= request.getParameter("username") %>" already exists. Please use a unique username. </p>
+    <%
+        }
+    %>
 
     <form action="./create" method="post">
         <div class="fc-section">

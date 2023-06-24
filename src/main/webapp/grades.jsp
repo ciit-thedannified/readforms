@@ -21,7 +21,7 @@
 
         if (sessionUser.isEmpty()) response.sendRedirect("./");
     %>
-    
+
     <%! List<ExamRecord> records; %>
 
     <h1> Quiz Results </h1>

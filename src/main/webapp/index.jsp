@@ -1,7 +1,5 @@
 <%@ page import="java.util.Optional" %>
 <%@ page import="java.util.Arrays" %>
-<%@ page import="java.util.stream.Stream" %>
-<%@ page import="java.util.stream.Collectors" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +27,24 @@
 
 </head>
 <body>
+
+    <%! String s; %>
+
+    <%
+        Optional<Cookie[]> cookies;
+        s = null;
+
+        cookies = Optional.ofNullable(request.getCookies());
+
+        cookies.ifPresent(c -> s = Arrays.stream(c)
+                .filter(a -> a.getName().equals("username"))
+                .map(Cookie::getValue).findFirst().orElse(null));
+
+        if (s != null) {
+            session.setAttribute("username", s);
+            response.sendRedirect("./home.jsp");
+        }
+    %>
 
     <h1> Exercise: Quiz Website </h1>
     <p> Please log in to get started. </p>
