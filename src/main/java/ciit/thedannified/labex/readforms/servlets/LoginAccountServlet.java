@@ -1,6 +1,7 @@
 package ciit.thedannified.labex.readforms.servlets;
 
 import ciit.thedannified.labex.readforms.Database;
+import ciit.thedannified.labex.readforms.SessionUtils;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,8 +24,11 @@ public class LoginAccountServlet extends HttpServlet {
 
         if (Database.validateUser(username, password)) {
             unameCookie = new Cookie("username", username);
+            int status = SessionUtils.addSession(username, session.getId());
 
             session.setAttribute("username", username);
+
+            System.out.println(status);
             resp.addCookie(unameCookie);
             resp.sendRedirect("./home.jsp");
         }

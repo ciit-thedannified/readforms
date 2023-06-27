@@ -1,4 +1,4 @@
-<%@ page import="java.util.Optional" %>
+<%@ page import="ciit.thedannified.labex.readforms.SessionUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,13 +11,13 @@
 </head>
 <body>
     <%
-        Optional<Object> sessionUser;
-        sessionUser = Optional.ofNullable(session.getAttribute("username"));
-
-        if (sessionUser.isEmpty()) response.sendRedirect("./");
+        if (!SessionUtils.hasUserLoggedIn(request, response)) {
+            response.sendRedirect("./");
+            return;
+        }
     %>
 
-<small> Logging out... </small>
+    <small> Logging out... </small>
     <%
         // Get all cookies
         Cookie[] cookies = request.getCookies();

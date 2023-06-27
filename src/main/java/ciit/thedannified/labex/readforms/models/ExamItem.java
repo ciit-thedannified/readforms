@@ -1,18 +1,3 @@
-/*
-    **************************************************************************
-    COURSE SUBJECT: CSELEC1 - DYNAMIC WEB PROGRAMMING (JAVA EE/REST API)
-    ASSIGNMENT TITLE: Lab Exercise: Reading HTML Form Data with JSP
-
-    SUBMITTED BY:   BOISER, Danne Uriel M.
-                    BS Computer Science - 2nd Year
-
-    SUBMITTED TO:   FULLER, Jonathan F.
-                    Class Instructor
-    ***************************************************************************
-    NOTE:   This file contains the source code used to run a working JSP file
-            executed in Eclipse JavaEE Developers IDE and Apache Tomcat 9.0
- */
-
 package ciit.thedannified.labex.readforms.models;
 
 import java.util.ArrayList;
@@ -57,12 +42,12 @@ public class ExamItem {
      */
     public ExamItem(String question, List<String> choices, int answer) throws IndexOutOfBoundsException {
         this(question);
+        this.choices.addAll(choices);
+
         // Given index must be less than the total number of choices AND is valid (not less than or equal to -1)
-        if (choices.size() > answer && answer > -1) {
-            this.choices.addAll(choices);
+        if (isValidAnswerIndex(answer)) {
             this.answer = answer;
         }
-        else throw new IndexOutOfBoundsException("Answer index does not match to the number of available choices.");
     }
 
     /**
@@ -96,7 +81,19 @@ public class ExamItem {
         return answer;
     }
 
-    public void setAnswer(int answer) {
-        this.answer = answer;
+    public void setAnswer (int answer) throws IndexOutOfBoundsException {
+        if (isValidAnswerIndex(answer))
+            this.answer = answer;
+        else
+            throw new IndexOutOfBoundsException("Answer index does not match to the number of available choices.");
+    }
+
+    /**
+     * Returns true if the given answer index is valid.
+     * @param answer index of new key answer
+     * @return true if the new answer index is valid; otherwise, return false.
+     */
+    private boolean isValidAnswerIndex(int answer) {
+        return choices.size() > answer && answer > -1;
     }
 }

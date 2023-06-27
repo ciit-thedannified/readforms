@@ -1,24 +1,9 @@
-<!--
-    **************************************************************************
-    COURSE SUBJECT: CSELEC1 - DYNAMIC WEB PROGRAMMING (JAVA EE/REST API)
-    ASSIGNMENT TITLE: Lab Exercise: Reading HTML Form Data with JSP
-
-    SUBMITTED BY:   BOISER, Danne Uriel M.
-                    BS Computer Science - 2nd Year
-
-    SUBMITTED TO:   FULLER, Jonathan F.
-                    Class Instructor
-    ***************************************************************************
-    NOTE:   This file contains the source code used to run a working JSP file
-            executed in Eclipse JavaEE Developers IDE and Apache Tomcat 9.0
--->
-
 <%@ page import="ciit.thedannified.labex.readforms.models.Exam" %>
 <%@ page import="ciit.thedannified.labex.readforms.models.ExamItem" %>
 <%@ page import="ciit.thedannified.labex.readforms.Database"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="java.util.Optional" %>
+<%@ page import="ciit.thedannified.labex.readforms.SessionUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -34,10 +19,10 @@
     </head>
     <body>
         <%
-            Optional<Object> sessionUser;
-            sessionUser = Optional.ofNullable(session.getAttribute("username"));
-
-            if (sessionUser.isEmpty()) response.sendRedirect("./");
+            if (!SessionUtils.hasUserLoggedIn(request, response)) {
+                response.sendRedirect("./");
+                return;
+            }
         %>
 
         <%!

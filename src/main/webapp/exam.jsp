@@ -1,23 +1,9 @@
-<!--
-    **************************************************************************
-    COURSE SUBJECT: CSELEC1 - DYNAMIC WEB PROGRAMMING (JAVA EE/REST API)
-    ASSIGNMENT TITLE: Lab Exercise: Reading HTML Form Data with JSP
-
-    SUBMITTED BY:   BOISER, Danne Uriel M.
-                    BS Computer Science - 2nd Year
-
-    SUBMITTED TO:   FULLER, Jonathan F.
-                    Class Instructor
-    ***************************************************************************
-    NOTE:   This file contains the source code used to run a working JSP file
-            executed in Eclipse JavaEE Developers IDE and Apache Tomcat 9.0
--->
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="ciit.thedannified.labex.readforms.models.Exam" %>
 <%@ page import="ciit.thedannified.labex.readforms.models.ExamItem" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Optional" %>
+<%@ page import="ciit.thedannified.labex.readforms.SessionUtils" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,17 +16,18 @@
     </head>
     <body>
 
-    <%
-        Optional<Object> sessionUser;
-        sessionUser = Optional.ofNullable(session.getAttribute("username"));
+        <%
+            if (!SessionUtils.hasUserLoggedIn(request, response)) {
+                response.sendRedirect("./");
+                return;
+            }
+        %>
 
-        if (sessionUser.isEmpty()) response.sendRedirect("./");
-    %>
-
-    <%!
+        <%!
             Exam exam;                      // holds the Exam object of the application.
             List<ExamItem> examItems;       // holds a list of exam items prepared for the examination.
         %>
+
         <%
             // Check if there is no exam object AND the website does not have an "exam" attribute in the application scope.
             if (exam == null && application.getAttribute("exam") == null) {

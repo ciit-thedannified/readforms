@@ -1,17 +1,3 @@
-/*
-    **************************************************************************
-    COURSE SUBJECT: CSELEC1 - DYNAMIC WEB PROGRAMMING (JAVA EE/REST API)
-    ASSIGNMENT TITLE: Lab Exercise: Reading HTML Form Data with JSP
-
-    SUBMITTED BY:   BOISER, Danne Uriel M.
-                    BS Computer Science - 2nd Year
-
-    SUBMITTED TO:   FULLER, Jonathan F.
-                    Class Instructor
-    ***************************************************************************
-    NOTE:   This file contains the source code used to run a working JSP file
-            executed in Eclipse JavaEE Developers IDE and Apache Tomcat 9.0
- */
 package ciit.thedannified.labex.readforms.models;
 
 import java.util.ArrayList;

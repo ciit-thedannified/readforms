@@ -1,5 +1,5 @@
 <%@ page import="ciit.thedannified.labex.readforms.Database" %>
-<%@ page import="java.util.Optional" %>
+<%@ page import="ciit.thedannified.labex.readforms.SessionUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,10 +18,7 @@
     %>
 
     <%
-        Optional<Object> sessionUser;
-        sessionUser = Optional.ofNullable(session.getAttribute("username"));
-
-        if (sessionUser.isPresent()) {
+        if (SessionUtils.hasUserLoggedIn(request, response)) {
             username = session.getAttribute("username").toString();     // Retrieve the client's username in this current session.
             hasTakenQuiz = Database.hasTakenQuiz(username);             // Check if the user has already taken the quiz by checking the database records.
 

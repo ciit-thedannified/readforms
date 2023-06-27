@@ -1,5 +1,4 @@
-<%@ page import="java.util.Optional" %>
-<%@ page import="java.util.Arrays" %>
+<%@ page import="ciit.thedannified.labex.readforms.SessionUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,21 +17,10 @@
 </head>
 <body>
 
-    <%! String s; %>
-
     <%
-        Optional<Cookie[]> cookies;
-        s = null;
-
-        cookies = Optional.ofNullable(request.getCookies());
-
-        cookies.ifPresent(c -> s = Arrays.stream(c)
-                .filter(a -> a.getName().equals("username"))
-                .map(Cookie::getValue).findFirst().orElse(null));
-
-        if (s != null) {
-            session.setAttribute("username", s);
+        if (SessionUtils.hasUserLoggedIn(request, response)) {
             response.sendRedirect("./home.jsp");
+            return;
         }
     %>
 
